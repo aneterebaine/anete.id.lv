@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="portfolio">
+  <title></title>
+
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --surface: #fff;
+      --text: #20231f;
+      --muted: #6b7069;
+      --accent: #496b52;
+      --line: #e5e7e1;
+      --radius: 18px;
+      --width: 1000px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.65 Arial, sans-serif;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(var(--width), 90%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(247, 247, 244, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: .95rem;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .project-link:hover {
+      color: var(--accent);
+    }
+
+    .menu-button {
+      display: none;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    section { padding: 64px 0; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.5fr .8fr;
+      align-items: center;
+      gap: 48px;
+      padding-top: 80px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: .78rem;
+    }
+
+    h1 {
+      margin: 12px 0;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.06;
+      letter-spacing: -.04em;
+    }
+
+    h2 {
+      margin: 0 0 24px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      letter-spacing: -.03em;
+    }
+
+    h3 { margin: 0 0 8px; }
+
+    .intro, .muted { color: var(--muted); }
+
+    .intro {
+      max-width: 620px;
+      font-size: 1.1rem;
+    }
+
+    .portrait {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      background: #e5ebe3;
+    }
+
+    .section-heading { margin-bottom: 24px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      overflow: hidden;
+      padding: 22px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .project-image {
+      width: calc(100% + 44px);
+      height: 210px;
+      margin: -22px -22px 18px;
+      object-fit: cover;
+      background: #e5ebe3;
+    }
+
+    .project-card p { color: var(--muted); }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 20px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .date { color: var(--muted); }
+
+    footer {
+      padding: 24px 0 36px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 700px) {
+      .menu-button { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        padding: 18px 5%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 52px;
+        gap: 24px;
+      }
+
+      .portrait { height: 260px; }
+      .grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+      section { padding: 48px 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav aria-label="Galvenā navigācija">
+        <a class="brand" href="#sakums">Portfolio</a>
+
+        <div class="nav-links" id="navigation">
+          <a href="#publikacijas">Publikācijas</a>
+          <a href="#papildu-pieredze">Papildu pieredze</a>
+          <a href="#izglitiba">Izglītība</a>
+          <a href="#valodu-prasmes">Valodu prasmes</a>
+          <a href="#kontakti">Kontakti</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero" id="sakums">
+      <div>
+        <div class="eyebrow"></div>
+        <h1>Labdien!</h1>
+        <p class="intro">
+          Mani sauc Anete.
+        </p>
+      </div>
+
+      <img class="portrait" src="images/portrets.jpg" alt="Portrets">
+    </section>
+
+    <section class="container" id="publikacijas">
+      <div class="section-heading">
+        <h2>Publikācijas</h2>
+      </div>
+
+      <div class="grid">
+        <article class="card project-card">
+          <a href="https://skalak.rsu.lv/sarunas/zurnalists-girts-zvirbulis-esiet-patiesi-pret-sevi-un-tad-busiet-patiesi-ari-pret-savu"
+             target="_blank" rel="noopener noreferrer">
+            <img class="project-image" src="images/girts.jpg"
+                 alt="Ģirts">
+          </a>
+          <h3>Žurnālists Ģirts Zvirbulis: "Esiet patiesi pret sevi un tad būsiet patiesi arī pret savu auditoriju!", 2024</h3>
+          <p></p>
+          <a class="project-link"
+             href="https://skalak.rsu.lv/sarunas/zurnalists-girts-zvirbulis-esiet-patiesi-pret-sevi-un-tad-busiet-patiesi-ari-pret-savu"
+             target="_blank" rel="noopener noreferrer">Intervija</a>
+        </article>
+
+        <div class="grid">
+          <article class="card project-card">
+            <a href="https://skalak.rsu.lv/podkasti/sapnos-nevaram-sev-samelot"
+               target="_blank" rel="noopener noreferrer">
+            </a>
+            <h3>Audiostāsts: “Sapņos nevaram sev samelot”, 2024</h3>
+            <a class="project-link"
+               href="https://skalak.rsu.lv/podkasti/sapnos-nevaram-sev-samelot"
+               target="_blank" rel="noopener noreferrer">Audiostāsts</a>
+          </article>
+
+          <article class="card project-card">
+            <a href="https://skalak.rsu.lv/raksti-sarunas/gaidam-kad-rinkevics-atbrauks-gostus"
+               target="_blank" rel="noopener noreferrer">
+              <img class="project-image" src="images/pierobeza.jpg"
+                   alt="Pierobeža">
+            </a>
+            <h3>“Gaidām, kad Rinkēvičs atbrauks gostūs”, 2024</h3>
+            <a class="project-link"
+               href="https://skalak.rsu.lv/raksti-sarunas/gaidam-kad-rinkevics-atbrauks-gostus"
+               target="_blank" rel="noopener noreferrer">Interviju sērija</a>
+          </article>
+
+          <article class="card project-card">
+            <a href="https://izvelies.eu/2024/12/davids-ernstreits-degsme-un-velme-zurnalista-saldais-ediens/"
+               target="_blank" rel="noopener noreferrer">
+              <img class="project-image" src="images/davids.jpg"
+                   alt="Dāvids">
+            </a>
+            <h3>Dāvids Ernštreits: “Darbs televīzijā ir amatniecība, bet kino ir māksla”, 2024</h3>
+            <a class="project-link"
+               href="https://izvelies.eu/2024/12/davids-ernstreits-degsme-un-velme-zurnalista-saldais-ediens/"
+               target="_blank" rel="noopener noreferrer">Apraksts</a>
+          </article>
+
+          <article class="card project-card">
+            <a href="https://izvelies.eu/2025/09/ka-dzima-straume-intervija-ar-oskarotas-filmas-veidotajiem/"
+               target="_blank" rel="noopener noreferrer">
+              <img class="project-image" src="images/straume.jpg"
+                   alt="Ar animācijas filmas Straume veidotājiem">
+            </a>
+            <h3>Kā dzima “Straume”: intervija ar oskarotās filmas veidotājiem, 2025</h3>
+            <a class="project-link"
+               href="https://izvelies.eu/2025/09/ka-dzima-straume-intervija-ar-oskarotas-filmas-veidotajiem/"
+               target="_blank" rel="noopener noreferrer">Intervija</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="papildu-pieredze">
+      <h2>Papildu pieredze</h2>
+
+      <article class="timeline-item">
+        <div>
+          <h3>Populārzinātniskā žurnāla “Semper Anticus” 7. izdevuma, 2024, redaktore</h3>
+          <a class="project-link" href="https://www.semperanticus.lv/wp-content/uploads/2024/09/7th-issue-Latvies%CC%8Cu.pdf"
+             target="_blank" rel="noopener noreferrer">Žurnāls</a>
+        </div>
+      </article>
+
+      <article class="timeline-item">
+        <div>
+          <h3>Ziemeļvalstu un Baltijas inovāciju laboratorija "NextGenDemocracy" Kopenhāgenā, Dānijā, 2024.</h3>
+        </div>
+      </article>
+
+      <article class="timeline-item">
+        <div>
+          <h3>Intervijas Gundegas Rozes grāmatas “Viņas var” atklāšanas pasākumā, 2025. Operators Emīls Smiļģis.</h3>
+          <video controls width="100%" poster="images/portrets.jpg">
+          <source src="videos/vinasvar.mp4" type="video/mp4">
+             target="_blank" rel="noopener noreferrer">Video</a>
+        </div>
+      </article>
+
+      <article class="timeline-item">
+        <div>
+          <h3>Raidījuma “Cilvēks.jpg”, 2025, radošā producente un redaktore. Režisore Elizabete Jurgevica, galvenais operators un montāžas režisors Emīls Smiļģis.</h3>
+          <a class="project-link" href="https://replay.lsm.lv/lv/skaties/raidijums/2616/cilveksjpg"
+             target="_blank" rel="noopener noreferrer">Raidījums</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="container" id="izglitiba">
+      <h2>Izglītība</h2>
+      <div class="grid">
+        <article class="card">
+          <p><strong>Bakalaura grāds žurnālistikā</strong></p>
+          <p class="muted">Rīgas Stradiņa universitāte, 2023–pašlaik</p>
+        </article>
+
+<section class="container" id="prakse">
+      <h2>Prakse</h2>
+      <div class="grid">
+        <article class="card">
+          <p><strong>"Young Media House", 2024-2025</strong></p>
+          <p class="muted"></p>
+        </article>
+
+<section class="container" id="prakse">
+      <div class="grid">
+        <article class="card">
+          <p><strong>Studentu medijs "Skaļāk", 2025</strong></p>
+          <p class="muted"></p>
+        </article>
+
+<section class="container" id="valodu-prasmes">
+      <h2>Valodu prasmes</h2>
+        <article class="card">
+          <p>Latviešu — dzimtā</p>
+          <p>Angļu — B2</p>
+          <p>Krievu — B1</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="kontakti">
+      <h2>E-pasts</h2>
+      <p><a href="mailto:aneterebaine@gmail.com">aneterebaine@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Anete Rebaine
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-button");
+    const navigation = document.querySelector("#navigation");
+
+    if (menuButton && navigation) {
+      menuButton.addEventListener("click", () => {
+        const isOpen = navigation.classList.toggle("open");
+        menuButton.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      navigation.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navigation.classList.remove("open");
+          menuButton.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    const yearEl = document.querySelector("#year");
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+  </script>
+</body>
+</html>
